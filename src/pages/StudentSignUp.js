@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
 const createStudent = async ({ email, password, school }) => {
   const body = { email: email, password: password, school: school };
@@ -10,20 +11,25 @@ const createStudent = async ({ email, password, school }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
-  }).then((data) => data.json());
+  }).then((res) => {
+    return res.status === 200 ? true : false;
+  });
 };
 
 const StudentSignUp = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [school, setSchool] = useState();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async ({ email, password, school }) => {
     const response = await createStudent({ email, password, school });
 
-    console.log(response);
+    if (response) {
+      navigate("/login");
+    }
   };
 
   return (
@@ -32,20 +38,29 @@ const StudentSignUp = () => {
       <h2>
         Already have an account? <Link to="/login">Log in!</Link>
       </h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           Email:{" "}
-          <input type="text" onChange={(e) => setEmail(e.target.value)} />
+          <input type="text" {...register("email", { required: true })} />
+          {errors.email?.type === "required" && (
+            <span role="alert"> Email is required</span>
+          )}
         </label>
         <br />
         <label>
           Password:{" "}
-          <input type="text" onChange={(e) => setPassword(e.target.value)} />
+          <input type="text" {...register("password", { required: true })} />
+          {errors.password?.type === "required" && (
+            <span role="alert"> Password is required</span>
+          )}
         </label>
         <br />
         <label>
           School:{" "}
-          <input type="text" onChange={(e) => setSchool(e.target.value)} />
+          <input type="text" {...register("school", { required: true })} />
+          {errors.school?.type === "required" && (
+            <span role="alert"> School is required</span>
+          )}
         </label>
         <br />
         <button type="submit">Sign Up</button>

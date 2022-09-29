@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import { encode } from "base-64";
 import UserContext from "../utils/UserContext";
 
@@ -25,25 +26,32 @@ const getUser = async ({ token }) => {
 };
 
 const StudentLogin = ({ setToken }) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
+  const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  const [failed, setFailed] = useState();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async ({ email, password }) => {
     const { token } = await loginStudent({
       email,
       password,
     });
 
-    const test = await loginStudent({ email, password });
-    console.log(test);
+    if (token) {
+      const student = await getUser({ token });
 
-    const student = await getUser({ token });
+      setUser(student);
+      setToken(token);
 
-    setUser(student);
-    setToken(token);
+      navigate("/");
+    } else {
+      setFailed(true);
+    }
   };
 
   return (
@@ -52,18 +60,25 @@ const StudentLogin = ({ setToken }) => {
       <h2>
         No account? <Link to="/signup">Sign up!</Link>
       </h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {failed && <p role="alert">Incorrect username or password</p>}
         <input
           type="text"
           placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
+          {...register("email", { required: true })}
         />
+        {errors.email?.type === "required" && (
+          <span role="alert"> Email is required</span>
+        )}
         <br />
         <input
           type="text"
           placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
+          {...register("password", { required: true })}
         />
+        {errors.password?.type === "required" && (
+          <span role="alert"> Password is required</span>
+        )}
         <br />
         <button type="submit">Login</button>
       </form>
