@@ -1,4 +1,6 @@
 import React, { useState, useContext } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import { encode } from "base-64";
 import UserContext from "../utils/UserContext";
 
@@ -35,6 +37,9 @@ const StudentLogin = ({ setToken }) => {
       password,
     });
 
+    const test = await loginStudent({ email, password });
+    console.log(test);
+
     const student = await getUser({ token });
 
     setUser(student);
@@ -44,6 +49,9 @@ const StudentLogin = ({ setToken }) => {
   return (
     <div>
       <h1>Login</h1>
+      <h2>
+        No account? <Link to="/signup">Sign up!</Link>
+      </h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

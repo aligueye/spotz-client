@@ -7,6 +7,7 @@ import UserContext from "./utils/UserContext";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import StudentLogin from "./pages/StudentLogin";
+import StudentSignUp from "./pages/StudentSignUp";
 import ErrorPage from "./pages/ErrorPage";
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
               path="/login"
               element={<StudentLogin setToken={setToken} />}
             />
+            <Route path="/signup" element={<StudentSignUp />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </UserContext.Provider>
