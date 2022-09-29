@@ -28,8 +28,8 @@ function App() {
           <nav>
             <Link to="/"> Home </Link>
             <Link to="/about"> About </Link>
-            {!token && <Link to="/login"> Login </Link>}
-            {token && (
+            {!user && <Link to="/login"> Login </Link>}
+            {user && (
               <Link to="/" onClick={() => logOut()}>
                 Sign Out
               </Link>
