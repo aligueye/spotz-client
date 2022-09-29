@@ -2,10 +2,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
-const createStudent = async ({ email, password, school }) => {
-  const body = { email: email, password: password, school: school };
+const createLandlord = async ({ email, password }) => {
+  const body = { email: email, password: password };
 
-  return fetch("http://127.0.0.1:5000/student/", {
+  return fetch("http://127.0.0.1:5000/landlord/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +16,7 @@ const createStudent = async ({ email, password, school }) => {
   });
 };
 
-const StudentSignUp = () => {
+const LandlordSignUp = () => {
   const navigate = useNavigate();
   const {
     register,
@@ -24,11 +24,11 @@ const StudentSignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async ({ email, password, school }) => {
-    const response = await createStudent({ email, password, school });
+  const onSubmit = async ({ email, password }) => {
+    const response = await createLandlord({ email, password });
 
     if (response) {
-      navigate("/login");
+      navigate("/landlord-login");
     }
   };
 
@@ -36,7 +36,7 @@ const StudentSignUp = () => {
     <div>
       <h1>Sign up!</h1>
       <h2>
-        Already have an account? <Link to="/login">Log in!</Link>
+        Already have an account? <Link to="/landlord-login">Log in!</Link>
       </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
@@ -55,18 +55,11 @@ const StudentSignUp = () => {
           )}
         </label>
         <br />
-        <label>
-          School:{" "}
-          <input type="text" {...register("school", { required: true })} />
-          {errors.school?.type === "required" && (
-            <span role="alert"> School is required</span>
-          )}
-        </label>
-        <br />
+
         <button type="submit">Sign Up</button>
       </form>
     </div>
   );
 };
 
-export default StudentSignUp;
+export default LandlordSignUp;
