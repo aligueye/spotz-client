@@ -34,7 +34,7 @@ const StudentSignUp = () => {
 
   return (
     <div>
-      <h1>Sign up!</h1>
+      <h1>Renter Sign up!</h1>
       <h2>
         Already have an account? <Link to="/login">Log in!</Link>
       </h2>

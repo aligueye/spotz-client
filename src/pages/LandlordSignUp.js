@@ -34,7 +34,7 @@ const LandlordSignUp = () => {
 
   return (
     <div>
-      <h1>Sign up!</h1>
+      <h1>Landlord Sign up</h1>
       <h2>
         Already have an account? <Link to="/landlord-login">Log in!</Link>
       </h2>

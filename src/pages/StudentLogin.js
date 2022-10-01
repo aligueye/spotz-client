@@ -58,7 +58,7 @@ const StudentLogin = ({ setToken }) => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Renter Login</h1>
       <h2>
         No account? <Link to="/signup">Sign up!</Link>
       </h2>

@@ -58,7 +58,7 @@ const LandlordLogin = ({ setToken }) => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Landlord Login</h1>
       <h2>
         No account? <Link to="/landlord-signup">Sign up!</Link>
       </h2>
