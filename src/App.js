@@ -9,13 +9,19 @@ import About from "./pages/About";
 import ChooseUser from "./pages/ChooseUser";
 import StudentLogin from "./pages/StudentLogin";
 import StudentSignUp from "./pages/StudentSignUp";
+import StudentProfile from "./pages/StudentProfile";
 import LandlordLogin from "./pages/LandlordLogin";
 import LandlordSignUp from "./pages/LandlordSignUp";
 import ErrorPage from "./pages/ErrorPage";
 
 function App() {
-  const [user, setUser] = useState(null);
-  const { setToken } = useToken();
+  // FIXME: user is lost after refreshing page
+  // Add something to use token to get user on refresh
+
+  // FIXME: user is still active after token has expired
+
+  const [user, setUser] = useState();
+  const { token, setToken } = useToken();
 
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
@@ -37,8 +43,9 @@ function App() {
                 Sign Out
               </Link>
             )}
-            {user?.isLandlord === true && <h1>fleecer</h1>}
-            {user?.isLandlord === false && <h1>fleeced</h1>}
+            {user && <Link to="/profile"> Profile </Link>}
+            {/* {user?.isLandlord === true && <h1>fleecer</h1>}
+            {user?.isLandlord === false && <h1>fleeced</h1>} */}
           </nav>
 
           <Routes>
@@ -55,6 +62,7 @@ function App() {
             />
             <Route path="/signup" element={<StudentSignUp />} />
             <Route path="/landlord-signup" element={<LandlordSignUp />} />
+            <Route path="/profile" element={<StudentProfile />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </UserContext.Provider>
