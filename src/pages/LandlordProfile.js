@@ -3,16 +3,14 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import UserContext from "../utils/UserContext";
 
-const putUser = async ({ password, school, user }) => {
+const putUser = async ({ password, user }) => {
   const token = localStorage.getItem("token");
   const body = { ...user };
   if (password) {
     body.password = password;
   }
-  if (school) {
-    body.school = school;
-  }
-  return fetch("http://127.0.0.1:5000/student/", {
+
+  return fetch("http://127.0.0.1:5000/landlord/", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +26,7 @@ const putUser = async ({ password, school, user }) => {
   });
 };
 
-const StudentProfile = () => {
+const LandlordProfile = () => {
   const { user, setUser } = useContext(UserContext);
   const [failed, setFailed] = useState();
 
@@ -38,10 +36,10 @@ const StudentProfile = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async ({ password, school }) => {
-    const response = await putUser({ password, school, user });
+  const onSubmit = async ({ password }) => {
+    const response = await putUser({ password, user });
     if (response) {
-      response.isLandlord = false;
+      response.isLandlord = true;
       setUser(response);
     } else {
       setFailed(true);
@@ -50,10 +48,9 @@ const StudentProfile = () => {
 
   return (
     <div>
-      <h1>Renter Profile</h1>
+      <h1>Landlord Profile</h1>
       <p>Email: {user.email}</p>
       <p>Password: {user.password}</p>
-      <p>School: {user.school}</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           Password{" "}
@@ -63,22 +60,14 @@ const StudentProfile = () => {
             {...register("password")}
           ></input>
         </label>
-        <br />
-        <label>
-          School{" "}
-          <input
-            type="text"
-            placeholder={user?.school}
-            {...register("school")}
-          ></input>
-        </label>
+
         <br />
         {failed === true && <h4>Something went wrong</h4>}
-        {/* Add way to assign house to student */}
+        {/* Add way to assign house to landlord */}
         <button type="submit">Update Profile</button>
       </form>
     </div>
   );
 };
 
-export default StudentProfile;
+export default LandlordProfile;

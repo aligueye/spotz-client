@@ -12,6 +12,7 @@ import StudentSignUp from "./pages/StudentSignUp";
 import StudentProfile from "./pages/StudentProfile";
 import LandlordLogin from "./pages/LandlordLogin";
 import LandlordSignUp from "./pages/LandlordSignUp";
+import LandlordProfile from "./pages/LandlordProfile";
 import ErrorPage from "./pages/ErrorPage";
 
 function App() {
@@ -43,7 +44,12 @@ function App() {
                 Sign Out
               </Link>
             )}
-            {user && <Link to="/profile"> Profile </Link>}
+            {user && user.isLandlord === false && (
+              <Link to="/profile"> Profile </Link>
+            )}
+            {user && user.isLandlord === true && (
+              <Link to="/landlord-profile"> Profile </Link>
+            )}
             {/* {user?.isLandlord === true && <h1>fleecer</h1>}
             {user?.isLandlord === false && <h1>fleeced</h1>} */}
           </nav>
@@ -63,6 +69,7 @@ function App() {
             <Route path="/signup" element={<StudentSignUp />} />
             <Route path="/landlord-signup" element={<LandlordSignUp />} />
             <Route path="/profile" element={<StudentProfile />} />
+            <Route path="/landlord-profile" element={<LandlordProfile />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </UserContext.Provider>
