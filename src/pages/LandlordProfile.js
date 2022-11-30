@@ -78,8 +78,16 @@ const LandlordProfile = () => {
       <p>Password: {user.password}</p>
       <p>Houses:</p>
       {houses &&
-        houses.map((house) => {
-          return <div>{house.address}</div>;
+        houses.map((house, key) => {
+          return (
+            <div key={key}>
+              <p>
+                {house.address}
+                {"  "}
+                <Link to={`/edit-house?house_id=${house.id}`}>Edit</Link>
+              </p>
+            </div>
+          );
         })}
 
       <button>

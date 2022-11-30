@@ -16,6 +16,7 @@ import LandlordProfile from "./pages/LandlordProfile";
 import ErrorPage from "./pages/ErrorPage";
 import Results from "./pages/Results";
 import AddHouse from "./pages/AddHouse";
+import EditHouse from "./pages/EditHouse";
 
 function App() {
   // FIXME: user is lost after refreshing page
@@ -74,6 +75,7 @@ function App() {
             <Route path="/landlord-profile" element={<LandlordProfile />} />
             <Route path="/results" element={<Results />} />
             <Route path="/add-house" element={<AddHouse />} />
+            <Route path="/edit-house" element={<EditHouse />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </UserContext.Provider>
