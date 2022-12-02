@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import UserContext from "../utils/UserContext";
+import { useNavigate } from "react-router-dom";
 
 // method to update house
 const putHouse = async ({ address, house }) => {
@@ -20,6 +21,24 @@ const putHouse = async ({ address, house }) => {
     .then((res) => {
       if (res.ok) {
         return res.json();
+      } else {
+        return false;
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+// method to delete house by houseId
+const deleteHouse = async (houseId) => {
+  return fetch(`http://127.0.0.1:5000/house/${houseId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (res.ok) {
+        return true;
       } else {
         return false;
       }
@@ -50,6 +69,7 @@ const EditHouse = () => {
 
   const queryParams = new URLSearchParams(window.location.search);
   const houseId = Number(queryParams.get("house_id"));
+  const navigate = useNavigate();
 
   const fetchHouse = async () => {
     setHouse(await getHouse(houseId));
@@ -73,7 +93,16 @@ const EditHouse = () => {
       setFailed(true);
     }
   };
-  console.log(house);
+
+  const onDelete = async () => {
+    const response = await deleteHouse(houseId);
+    console.log(response);
+    if (response) {
+      navigate("/landlord-profile");
+      console.log("House deleted");
+    }
+  };
+
   return (
     <div>
       <h1>Edit house</h1>
@@ -88,6 +117,7 @@ const EditHouse = () => {
         {failed === true && <h4>Something went wrong</h4>}
         <button type="submit">Update House</button>
       </form>
+      <button onClick={onDelete}>Delete House</button>
     </div>
   );
 };

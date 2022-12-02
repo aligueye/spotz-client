@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import UserContext from "../utils/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const postHouse = async ({ address, user }) => {
   // FIXME: add token to this endpoint (API as well)
@@ -14,7 +15,7 @@ const postHouse = async ({ address, user }) => {
     body: JSON.stringify(body),
   }).then((res) => {
     if (res.ok) {
-      return res.json();
+      return true;
     } else {
       return false;
     }
@@ -23,12 +24,19 @@ const postHouse = async ({ address, user }) => {
 
 const AddHouse = () => {
   const { user } = useContext(UserContext);
+  const [failed, setFailed] = useState();
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState: errors } = useForm();
 
   const onSubmit = async ({ address }) => {
     const response = await postHouse({ address, user });
     // FIXME: add check if house was created (Update API as well)
+    if (response) {
+      navigate("/landlord-profile");
+    } else {
+      setFailed(true);
+    }
   };
 
   return (
@@ -40,6 +48,7 @@ const AddHouse = () => {
           Address <input type="text" {...register("address")}></input>
         </label>
         <br />
+        {failed === true && <h4>Something went wrong</h4>}
         <button type="submit">Create House</button>
       </form>
     </div>
