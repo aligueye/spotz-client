@@ -10,7 +10,7 @@ import PlacesAutocomplete, {
 
 const postHouse = async (data, user, latLng) => {
   // FIXME: add token to this endpoint (API as well)
-  console.log(data, user, latLng);
+
   const body = {
     landlord_id: user.id,
     latitude: latLng.lat,

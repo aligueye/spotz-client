@@ -5,10 +5,25 @@ import UserContext from "../utils/UserContext";
 import { useNavigate } from "react-router-dom";
 
 // method to update house
-const putHouse = async ({ address, house }) => {
+const putHouse = async (data, house) => {
+  const { bedrooms, bathrooms, price, year_built, square_feet } = data;
+
   const body = { ...house };
-  if (address) {
-    body.address = address;
+
+  if (bedrooms) {
+    body.bedrooms = bedrooms;
+  }
+  if (bathrooms) {
+    body.bathrooms = bathrooms;
+  }
+  if (price) {
+    body.price = price;
+  }
+  if (year_built) {
+    body.year_built = year_built;
+  }
+  if (square_feet) {
+    body.square_feet = square_feet;
   }
 
   return fetch(`http://127.0.0.1:5000/house/${house.id}`, {
@@ -85,8 +100,8 @@ const EditHouse = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async ({ address }) => {
-    const response = await putHouse({ address, house });
+  const onSubmit = async (data) => {
+    const response = await putHouse(data, house);
     if (response) {
       setHouse(response);
     } else {
@@ -107,12 +122,34 @@ const EditHouse = () => {
     <div>
       <h1>Edit house</h1>
       <p>Address: {house.address}</p>
+      <p>Zip: {house.zipcode}</p>
+      <p>City: {house.city}</p>
+      <p>Bedrooms: {house.bedrooms}</p>
+      <p>Bathrooms: {house.bathrooms}</p>
+      <p>Price: {house.price}</p>
+      <p>Year Built: {house.year_built}</p>
+      <p>Square Feet: {house.square_feet}</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
-          Address{"  "}
-          <input type="text" {...register("address", { minLength: 1 })}></input>
+          Bedrooms <input type="number" {...register("bedrooms")}></input>
         </label>
-
+        <br />
+        <label>
+          Bathrooms <input type="number" {...register("bathrooms")}></input>
+        </label>
+        <br />
+        <label>
+          Price <input type="number" {...register("price")}></input>
+        </label>
+        <br />
+        <label>
+          Year Built <input type="number" {...register("year_built")}></input>
+        </label>
+        <br />
+        <label>
+          Square Feet <input type="number" {...register("square_feet")}></input>
+        </label>
+        <br />
         <br />
         {failed === true && <h4>Something went wrong</h4>}
         <button type="submit">Update House</button>
