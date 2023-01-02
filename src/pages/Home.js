@@ -9,7 +9,6 @@ const Home = () => {
   const navigate = useNavigate();
 
   const logEntry = ({ address, lat, lng }) => {
-    console.log("called back", address, lat, lng);
     const path = `/results?address=${address}&lat=${lat}&lng=${lng}`;
     address && lat && lng && navigate(path);
   };

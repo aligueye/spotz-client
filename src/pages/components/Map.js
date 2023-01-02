@@ -1,12 +1,12 @@
 import React from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
-const Map = ({ lat, lng }) => {
+const Map = ({ lat, lng, houses }) => {
   const containerStyle = {
     width: "300px",
     height: "300px",
   };
-  console.log(lat, lng);
+
   const center = {
     lat,
     lng,
@@ -32,10 +32,27 @@ const Map = ({ lat, lng }) => {
   if (!isLoaded) {
     return <h2>Loading...</h2>;
   }
-
+  console.log(houses);
   return (
-    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={center}
+      zoom={13}
+      options={{
+        zoomControl: false,
+        streetViewControl: false,
+        mapTypeControl: false,
+        fullscreenControl: false,
+        draggableCursor: false,
+      }}
+    >
       {/* Child components, such as markers, info windows, etc. */}
+
+      {houses &&
+        houses.map((house) => {
+          const houseLocation = { lat: house.latitude, lng: house.longitude };
+          return <Marker position={houseLocation} />;
+        })}
     </GoogleMap>
   );
 };
