@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+
+import HouseContext from "../../utils/HouseContext";
 
 const Map = ({ lat, lng, houses }) => {
   const containerStyle = {
@@ -15,6 +17,9 @@ const Map = ({ lat, lng, houses }) => {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
   });
+
+  const { setSelectedHouse } = useContext(HouseContext);
+
   // Figure out what these commented things do
 
   //   const onLoad = React.useCallback(function callback(map) {
@@ -32,7 +37,6 @@ const Map = ({ lat, lng, houses }) => {
   if (!isLoaded) {
     return <h2>Loading...</h2>;
   }
-  console.log(houses);
   return (
     <GoogleMap
       mapContainerStyle={containerStyle}
@@ -51,7 +55,12 @@ const Map = ({ lat, lng, houses }) => {
       {houses &&
         houses.map((house) => {
           const houseLocation = { lat: house.latitude, lng: house.longitude };
-          return <Marker position={houseLocation} />;
+          return (
+            <Marker
+              onClick={() => setSelectedHouse(house)}
+              position={houseLocation}
+            />
+          );
         })}
     </GoogleMap>
   );
