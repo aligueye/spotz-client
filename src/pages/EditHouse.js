@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import UserContext from "../utils/UserContext";
 import { useNavigate } from "react-router-dom";
 
+import ImageUploader from "./components/ImageUploader";
+
 // method to update house
 const putHouse = async (data, house) => {
   const { bedrooms, bathrooms, price, year_built, square_feet } = data;
@@ -77,9 +79,38 @@ const getHouse = async (houseId) => {
     .catch((err) => console.log(err));
 };
 
+const getImages = async (houseId) => {
+  return fetch(`http://127.0.0.1:5000/uploads/${houseId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+const deleteUpload = async (uploadId) => {
+  return fetch(`http://127.0.0.1:5000/upload/${uploadId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.ok;
+    })
+    .catch((err) => console.log(err));
+};
+
 const EditHouse = () => {
   const { user } = useContext(UserContext);
   const [house, setHouse] = useState({});
+  const [images, setImages] = useState([]);
   const [failed, setFailed] = useState();
 
   const queryParams = new URLSearchParams(window.location.search);
@@ -90,9 +121,17 @@ const EditHouse = () => {
     setHouse(await getHouse(houseId));
   };
 
+  const fetchImages = async () => {
+    setImages(await getImages(houseId));
+  };
+
   useEffect(() => {
     fetchHouse();
   }, []);
+
+  useEffect(() => {
+    fetchImages();
+  }, [house]);
 
   const {
     register,
@@ -111,16 +150,33 @@ const EditHouse = () => {
 
   const onDelete = async () => {
     const response = await deleteHouse(houseId);
-    console.log(response);
     if (response) {
       navigate("/landlord-profile");
       console.log("House deleted");
     }
   };
 
+  const deleteImage = async (image) => {
+    const response = await deleteUpload(image.id);
+    console.log(response);
+  };
+
+  console.log(images);
+
   return (
     <div>
       <h1>Edit house</h1>
+      {images && (
+        <div>
+          {images.map((image) => (
+            <div>
+              <img width={400} height={200} src={image.url} alt="house" />
+              <button onClick={() => deleteImage(image)}>Delete</button>
+            </div>
+          ))}
+        </div>
+      )}
+      {/* {show images here} */}
       <p>Address: {house.address}</p>
       <p>Zip: {house.zipcode}</p>
       <p>City: {house.city}</p>
@@ -154,6 +210,10 @@ const EditHouse = () => {
         {failed === true && <h4>Something went wrong</h4>}
         <button type="submit">Update House</button>
       </form>
+      <br />
+      <ImageUploader house={house} />
+      <br />
+      <br />
       <button onClick={onDelete}>Delete House</button>
     </div>
   );

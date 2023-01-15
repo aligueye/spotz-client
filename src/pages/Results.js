@@ -48,7 +48,11 @@ const Results = () => {
         Results!!!!
         <br />
         <br />
-        {selectedHouse && <h1>{selectedHouse.address}</h1>}
+        {selectedHouse && (
+          <h1 onClick={() => console.log("opening page")}>
+            {selectedHouse.address}
+          </h1>
+        )}
         <Map lat={lat} lng={lng} houses={houses} />
         <div className="house-list-item">
           <h2>Houses near search</h2>
