@@ -57,9 +57,9 @@ const Results = () => {
         <div className="house-list-item">
           <h2>Houses near search</h2>
           {houses &&
-            houses.map((house) => (
+            houses.map((house, key) => (
               // expand house details when clicked
-              <div onClick={() => console.log(house)}>
+              <div key={key} onClick={() => console.log(house)}>
                 <h3>{house?.address}</h3>
               </div>
             ))}

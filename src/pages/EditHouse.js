@@ -158,10 +158,10 @@ const EditHouse = () => {
 
   const deleteImage = async (image) => {
     const response = await deleteUpload(image.id);
-    console.log(response);
+    if (response) {
+      fetchImages();
+    }
   };
-
-  console.log(images);
 
   return (
     <div>
@@ -211,7 +211,7 @@ const EditHouse = () => {
         <button type="submit">Update House</button>
       </form>
       <br />
-      <ImageUploader house={house} />
+      <ImageUploader house={house} fetchImages={fetchImages} />
       <br />
       <br />
       <button onClick={onDelete}>Delete House</button>

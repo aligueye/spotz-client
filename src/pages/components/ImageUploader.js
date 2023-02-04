@@ -10,10 +10,14 @@ const postImage = async (house, data) => {
   return fetch(`http://127.0.0.1:5000/upload/${house.id}`, {
     method: "POST",
     body: formData,
-  });
+  })
+    .then((res) => {
+      return res.ok;
+    })
+    .catch((err) => console.log(err));
 };
 
-const ImageUploader = ({ house }) => {
+const ImageUploader = ({ house, fetchImages }) => {
   const {
     register,
     handleSubmit,
@@ -22,7 +26,9 @@ const ImageUploader = ({ house }) => {
 
   const onSubmit = async (data) => {
     const res = await postImage(house, data);
-    // FIXME: add input validation
+    if (res) {
+      fetchImages();
+    }
   };
 
   return (
