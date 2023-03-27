@@ -5,6 +5,8 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 
+import "./search-bar.css";
+
 const SearchBar = ({ callBack }) => {
   const [address, setAddress] = useState("");
 
@@ -20,19 +22,18 @@ const SearchBar = ({ callBack }) => {
   };
 
   return (
-    <div>
+    <div className="search-bar">
       <PlacesAutocomplete
         value={address}
         onChange={handleChange}
         onSelect={handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <span>Search: </span>
+          <div className="search-bar__input-container">
             <input
               {...getInputProps({
-                placeholder: "Search Places ...",
-                className: "location-search-input",
+                placeholder: "Hoboken...",
+                className: "search-bar__input",
               })}
             />
             <div className="autocomplete-dropdown-container">

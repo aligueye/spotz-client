@@ -8,7 +8,15 @@
   justify-content: space-between;
   align-items: center;
   height: 80px;
+  max-width: 1200px;
+  margin: 0 auto 80px;
   padding: 0 20px;
+}
+
+@media (min-width: 768px) {
+  .navbar {
+    margin: 0 auto 200px;
+  }
 }
 
 .navbar__link {

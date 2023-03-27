@@ -1,0 +1,28 @@
+.search-bar {
+}
+
+.search-bar__input-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .search-bar__input-container {
+    max-width: 800px;
+    margin: 20px auto 0;
+  }
+}
+
+.search-bar__input {
+  width: 100%;
+  height: 60px;
+  background-color: #f4f4f4;
+  border: none;
+  text-align: center;
+  font-size: 21px;
+}
+
+.search-bar__input::placeholder {
+  color: #b1b1b1;
+}
