@@ -1,0 +1,13 @@
+.home-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.copy {
+  text-align: center;
+}
+
+.copy__headline {
+  font-weight: 500;
+  font-size: 26px;
+}

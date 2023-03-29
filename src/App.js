@@ -17,6 +17,9 @@ import ErrorPage from "./pages/ErrorPage";
 import Results from "./pages/Results";
 import AddHouse from "./pages/AddHouse";
 import EditHouse from "./pages/EditHouse";
+import NavBar from "./pages/components/NavBar";
+
+import "./app.css";
 
 function App() {
   // FIXME: user is lost after refreshing page
@@ -38,24 +41,7 @@ function App() {
     <div>
       <Router>
         <UserContext.Provider value={value}>
-          <nav>
-            <Link to="/"> Home </Link>
-            <Link to="/about"> About </Link>
-            {!user && <Link to="/user"> Login </Link>}
-            {user && (
-              <Link to="/" onClick={() => logOut()}>
-                Sign Out
-              </Link>
-            )}
-            {user && user.isLandlord === false && (
-              <Link to="/profile"> Profile </Link>
-            )}
-            {user && user.isLandlord === true && (
-              <Link to="/landlord-profile"> Profile </Link>
-            )}
-            {/* {user?.isLandlord === true && <h1>fleecer</h1>}
-            {user?.isLandlord === false && <h1>fleeced</h1>} */}
-          </nav>
+          <NavBar props={{ user, logOut }} />
 
           <Routes>
             <Route path="/" element={<Home />} />
