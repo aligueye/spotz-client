@@ -26,3 +26,18 @@
 .search-bar__input::placeholder {
   color: #b1b1b1;
 }
+
+.autocomplete-dropdown-container {
+  text-align: left;
+}
+
+/* Targets the first child div that doesn't have the class 'suggestion-item' or 'suggestion-item--active' */
+.autocomplete-dropdown-container
+  > div:not(.suggestion-item, .suggestion-item--active) {
+  display: none;
+}
+
+.suggestion-item,
+.suggestion-item--active {
+  padding: 10px;
+}
