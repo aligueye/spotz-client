@@ -41,9 +41,18 @@ const LandlordSignUp = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           Email:{" "}
-          <input type="text" {...register("email", { required: true })} />
+          <input
+            type="text"
+            {...register("email", {
+              required: true,
+              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
+            })}
+          />
           {errors.email?.type === "required" && (
             <span role="alert"> Email is required</span>
+          )}
+          {errors.email?.type === "pattern" && (
+            <span role="alert"> Invalid email format</span>
           )}
         </label>
         <br />
