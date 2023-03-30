@@ -5,8 +5,8 @@ import HouseContext from "../../utils/HouseContext";
 
 const Map = ({ lat, lng, houses }) => {
   const containerStyle = {
-    width: "300px",
-    height: "300px",
+    width: "100%",
+    height: "100%",
   };
 
   const center = {
@@ -53,10 +53,11 @@ const Map = ({ lat, lng, houses }) => {
       {/* Child components, such as markers, info windows, etc. */}
 
       {houses &&
-        houses.map((house) => {
+        houses.map((house, index) => {
           const houseLocation = { lat: house.latitude, lng: house.longitude };
           return (
             <Marker
+              key={index}
               onClick={() => setSelectedHouse(house)}
               position={houseLocation}
             />

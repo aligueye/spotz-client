@@ -3,6 +3,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import HouseContext from "../utils/HouseContext";
 import Map from "./components/Map";
 
+import "./results.css";
+
 const getClosetHouses = async (lat, lng) => {
   return fetch("http://127.0.0.1:5000/houses/results", {
     method: "POST",
@@ -20,6 +22,7 @@ const getClosetHouses = async (lat, lng) => {
     })
     .catch((err) => console.log(err));
 };
+
 const Results = () => {
   const queryParams = new URLSearchParams(window.location.search);
 
@@ -43,24 +46,36 @@ const Results = () => {
   }, []);
 
   return (
-    <div>
+    <div className="results-page">
       <HouseContext.Provider value={value}>
-        Results!!!!
-        <br />
-        <br />
+        <div className="results-page-map">
+          <Map lat={lat} lng={lng} houses={houses} />
+        </div>
         {selectedHouse && (
-          <h1 onClick={() => console.log("opening page")}>
-            {selectedHouse.address}
-          </h1>
+          <div className="map-details">
+            <div className="map-details__address">{`${selectedHouse?.address}, ${selectedHouse?.city}`}</div>
+            <div className="map-details__rent">{`rent: $${selectedHouse?.price}`}</div>
+            <div className="map-details__beds">{`beds: ${selectedHouse?.bedrooms}`}</div>
+            <div className="map-details__baths">{`baths: ${selectedHouse?.bathrooms}`}</div>
+            <button
+              className="map-details__cta"
+              onClick={() => console.log("opening page")}
+            >
+              Let's Go
+            </button>
+          </div>
         )}
-        <Map lat={lat} lng={lng} houses={houses} />
-        <div className="house-list-item">
-          <h2>Houses near search</h2>
+        <div className="nearby-results">
+          <h2 className="nearby-results__heading">Houses near search</h2>
           {houses &&
             houses.map((house, key) => (
               // expand house details when clicked
-              <div key={key} onClick={() => console.log(house)}>
-                <h3>{house?.address}</h3>
+              <div
+                className="nearby-results__house"
+                key={key}
+                onClick={() => console.log(house)}
+              >
+                <div>{`${house?.address}, ${house?.city}`}</div>
               </div>
             ))}
         </div>

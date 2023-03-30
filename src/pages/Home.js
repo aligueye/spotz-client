@@ -17,8 +17,8 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <div className="copy">
-        <h1 className="copy__headline">Find rentals near you</h1>
+      <div className="home-page__copy">
+        <h1 className="home-page__headline">Find rentals near you</h1>
       </div>
       <SearchBar callBack={logEntry} />
     </div>

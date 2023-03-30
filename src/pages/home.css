@@ -3,11 +3,12 @@
   margin: 0 auto;
 }
 
-.copy {
+.home-page__copy {
   text-align: center;
+  margin: 120px auto 0;
 }
 
-.copy__headline {
+.home-page__headline {
   font-weight: 500;
   font-size: 26px;
 }
