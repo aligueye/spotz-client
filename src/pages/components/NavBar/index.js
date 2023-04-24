@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import spotzLogo from "../../../images/spotz-logo.svg";
 import "./NavBar.css";
+import UserContext from "../../../utils/UserContext";
 
-const NavBar = ({ user, logOut }) => {
+const NavBar = ({ logOut }) => {
+  const { user } = useContext(UserContext);
+
   return (
     <nav className="navbar">
       <div>

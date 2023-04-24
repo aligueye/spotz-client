@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import useToken from "./utils/useToken";
@@ -37,11 +37,17 @@ function App() {
     setUser(null);
   };
 
+  // useEffect(() => {
+  //   console.log(user);
+  // }, [user]);
+
+  console.log(user);
+
   return (
     <div>
       <Router>
         <UserContext.Provider value={value}>
-          <NavBar props={{ user, logOut }} />
+          <NavBar props={{ logOut }} />
 
           <Routes>
             <Route path="/" element={<Home />} />
