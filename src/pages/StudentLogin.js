@@ -57,33 +57,51 @@ const StudentLogin = ({ setToken }) => {
   };
 
   return (
-    <div>
-      <h1>Renter Login</h1>
-      <h2>
-        No account? <Link to="/signup">Sign up!</Link>
-      </h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {failed && <p role="alert">Incorrect username or password</p>}
-        <input
-          type="text"
-          placeholder="email"
-          {...register("email", { required: true })}
-        />
-        {errors.email?.type === "required" && (
-          <span role="alert"> Email is required</span>
-        )}
-        <br />
-        <input
-          type="text"
-          placeholder="password"
-          {...register("password", { required: true })}
-        />
-        {errors.password?.type === "required" && (
-          <span role="alert"> Password is required</span>
-        )}
-        <br />
-        <button type="submit">Login</button>
-      </form>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white p-10 rounded-lg shadow-md w-full max-w-md">
+        <h1 className="text-3xl font-bold mb-6">Renter Login</h1>
+        <h2 className="mb-6">
+          No account?{" "}
+          <Link to="/signup" className="text-blue-600 hover:text-blue-800">
+            Sign up!
+          </Link>
+        </h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {failed && (
+            <p role="alert" className="text-red-600">
+              Incorrect username or password
+            </p>
+          )}
+          <input
+            type="text"
+            placeholder="email"
+            {...register("email", { required: true })}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          />
+          {errors.email?.type === "required" && (
+            <span role="alert" className="text-red-600">
+              Email is required
+            </span>
+          )}
+          <input
+            type="text"
+            placeholder="password"
+            {...register("password", { required: true })}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          />
+          {errors.password?.type === "required" && (
+            <span role="alert" className="text-red-600">
+              Password is required
+            </span>
+          )}
+          <button
+            type="submit"
+            className="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 w-full"
+          >
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
