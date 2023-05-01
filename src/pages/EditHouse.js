@@ -164,57 +164,78 @@ const EditHouse = () => {
   };
 
   return (
-    <div>
-      <h1>Edit house</h1>
-      {images && (
-        <div>
-          {images.map((image) => (
-            <div>
-              <img width={400} height={200} src={image.url} alt="house" />
-              <button onClick={() => deleteImage(image)}>Delete</button>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <div className="bg-white p-10 rounded-lg shadow-md w-full max-w-2xl">
+        <h1 className="text-3xl font-bold mb-6">Edit house</h1>
+        {images && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            {images.map((image) => (
+              <div key={image.id} className="relative">
+                <img
+                  className="w-full h-48 object-cover rounded-md"
+                  src={image.url}
+                  alt="house"
+                />
+                <button
+                  onClick={() => deleteImage(image)}
+                  className="absolute top-2 right-2 text-white bg-red-600 p-1 rounded-full hover:bg-red-700 focus:outline-none"
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        {/* {show images here} */}
+        <div className="space-y-2 mb-6">
+          <p>Address: {house.address}</p>
+          <p>Zip: {house.zipcode}</p>
+          <p>City: {house.city}</p>
+          <p>Bedrooms: {house.bedrooms}</p>
+          <p>Bathrooms: {house.bathrooms}</p>
+          <p>Price: {house.price}</p>
+          <p>Year Built: {house.year_built}</p>
+          <p>Square Feet: {house.square_feet}</p>
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {[
+            { label: "Bedrooms", field: "bedrooms" },
+            { label: "Bathrooms", field: "bathrooms" },
+            { label: "Price", field: "price" },
+            { label: "Year Built", field: "year_built" },
+            { label: "Square Feet", field: "square_feet" },
+          ].map((fieldData) => (
+            <div key={fieldData.field} className="flex flex-col">
+              <label className="font-semibold">{fieldData.label}</label>
+              <input
+                type="number"
+                {...register(fieldData.field)}
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+              />
             </div>
           ))}
-        </div>
-      )}
-      {/* {show images here} */}
-      <p>Address: {house.address}</p>
-      <p>Zip: {house.zipcode}</p>
-      <p>City: {house.city}</p>
-      <p>Bedrooms: {house.bedrooms}</p>
-      <p>Bathrooms: {house.bathrooms}</p>
-      <p>Price: {house.price}</p>
-      <p>Year Built: {house.year_built}</p>
-      <p>Square Feet: {house.square_feet}</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>
-          Bedrooms <input type="number" {...register("bedrooms")}></input>
-        </label>
+          <br />
+          {failed === true && (
+            <h4 className="text-red-600 mb-4">Something went wrong</h4>
+          )}
+          <button
+            type="submit"
+            className="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 w-full mb-6"
+          >
+            Update House
+          </button>
+        </form>
         <br />
-        <label>
-          Bathrooms <input type="number" {...register("bathrooms")}></input>
-        </label>
-        <br />
-        <label>
-          Price <input type="number" {...register("price")}></input>
-        </label>
-        <br />
-        <label>
-          Year Built <input type="number" {...register("year_built")}></input>
-        </label>
-        <br />
-        <label>
-          Square Feet <input type="number" {...register("square_feet")}></input>
-        </label>
+        <ImageUploader house={house} fetchImages={fetchImages} />
         <br />
         <br />
-        {failed === true && <h4>Something went wrong</h4>}
-        <button type="submit">Update House</button>
-      </form>
-      <br />
-      <ImageUploader house={house} fetchImages={fetchImages} />
-      <br />
-      <br />
-      <button onClick={onDelete}>Delete House</button>
+        <button
+          onClick={onDelete}
+          className="bg-red-600 text-white font-semibold py-2 px-4 rounded hover:bg-red-700 w-full"
+        >
+          Delete House
+        </button>
+      </div>
     </div>
   );
 };
