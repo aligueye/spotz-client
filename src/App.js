@@ -20,6 +20,7 @@ import EditHouse from "./pages/EditHouse";
 import NavBar from "./pages/components/NavBar";
 
 import "./app.css";
+import "./index.css";
 
 function App() {
   // FIXME: user is lost after refreshing page
@@ -37,18 +38,11 @@ function App() {
     setUser(null);
   };
 
-  // useEffect(() => {
-  //   console.log(user);
-  // }, [user]);
-
-  console.log(user);
-
   return (
     <div>
       <Router>
         <UserContext.Provider value={value}>
           <NavBar props={{ logOut }} />
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

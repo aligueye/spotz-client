@@ -32,10 +32,20 @@ const ImageUploader = ({ house, fetchImages }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="file" {...register("image")} />
-        <button type="submit">Upload</button>
+    <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl">
+      <h2 className="text-2xl font-bold mb-4">Upload Image</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-4">
+        <input
+          type="file"
+          {...register("image")}
+          className="bg-gray-100 rounded-lg p-2 focus:outline-none"
+        />
+        <button
+          type="submit"
+          className="bg-green-600 text-white font-semibold py-2 px-4 rounded hover:bg-green-700"
+        >
+          Upload
+        </button>
       </form>
     </div>
   );

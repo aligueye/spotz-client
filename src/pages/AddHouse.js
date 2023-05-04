@@ -68,59 +68,97 @@ const AddHouse = () => {
   };
 
   return (
-    <div>
-      <h1>Hello {user.email}</h1>
-      <h3>Enter House information</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>
-          Address{" "}
+    <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl">
+      <h1 className="text-3xl font-bold mb-4">Hello {user.email}</h1>
+      <h3 className="text-2xl mb-6">Enter House information</h3>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <label className="block">
+          <span>Address</span>
           <input
             type="text"
             {...register("address", { required: true })}
+            className="block w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           ></input>
           {errors.address?.type === "required" && (
-            <span role="alert"> Address is required</span>
+            <span role="alert" className="text-red-600">
+              {" "}
+              Address is required
+            </span>
           )}
         </label>
-        <br />
-        <label>
-          Zip Code{" "}
+        <label className="block">
+          <span>Zip Code</span>
           <input
             type="text"
             {...register("zipcode", { required: true })}
+            className="block w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           ></input>
           {errors.zipcode?.type === "required" && (
-            <span role="alert"> Zipcode is required</span>
+            <span role="alert" className="text-red-600">
+              {" "}
+              Zipcode is required
+            </span>
           )}
         </label>
-        <br />
-        <label>
-          City <input type="text" {...register("city")}></input>
+        <label className="block">
+          <span>City</span>
+          <input
+            type="text"
+            {...register("city")}
+            className="block w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          ></input>
         </label>
-        <br />
-        <label>
-          Bedrooms <input type="number" {...register("bedrooms")}></input>
+        <label className="block">
+          <span>Bedrooms</span>
+          <input
+            type="number"
+            {...register("bedrooms")}
+            className="block w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          ></input>
         </label>
-        <br />
-        <label>
-          Bathrooms <input type="number" {...register("bathrooms")}></input>
+        <label className="block">
+          <span>Bathrooms</span>
+          <input
+            type="number"
+            {...register("bathrooms")}
+            className="block w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          ></input>
         </label>
-        <br />
-        <label>
-          Price <input type="number" {...register("price")}></input>
+        <label className="block">
+          <span>Price</span>
+          <input
+            type="number"
+            {...register("price")}
+            className="block w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          ></input>
         </label>
-        <br />
-        <label>
-          Year Built <input type="number" {...register("year_built")}></input>
+        <label className="block">
+          <span>Year Built</span>
+          <input
+            type="number"
+            {...register("year_built")}
+            className="block w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          ></input>
         </label>
-        <br />
-        <label>
-          Square Feet <input type="number" {...register("square_feet")}></input>
+        <label className="block">
+          <span>Square Feet</span>
+          <input
+            type="number"
+            {...register("square_feet")}
+            className="block w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          ></input>
         </label>
+
         <br />
-        <br />
-        {failed === true && <h4>Something went wrong</h4>}
-        <button type="submit">Create House</button>
+        {failed === true && (
+          <h4 className="text-red-600 mb-4">Something went wrong</h4>
+        )}
+        <button
+          type="submit"
+          className="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 focus:outline-none"
+        >
+          Create House
+        </button>
       </form>
     </div>
   );

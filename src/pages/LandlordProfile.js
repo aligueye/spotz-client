@@ -72,42 +72,56 @@ const LandlordProfile = () => {
   };
 
   return (
-    <div>
-      <h1>Landlord Profile</h1>
-      <p>Email: {user.email}</p>
-      <p>Password: {user.password}</p>
-      <p>Houses:</p>
-      {houses &&
-        houses.map((house, key) => {
-          return (
-            <div key={key}>
-              <p>
-                {house.address}
-                {"  "}
-                <Link to={`/edit-house?house_id=${house.id}`}>Edit</Link>
-              </p>
-            </div>
-          );
-        })}
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <div className="bg-white p-10 rounded-lg shadow-md w-full max-w-md">
+        <h1 className="text-3xl font-bold mb-6">Landlord Profile</h1>
+        <p className="mb-2">Email: {user.email}</p>
+        <p className="mb-4">Password: {user.password}</p>
+        <p className="font-semibold mb-4">Houses:</p>
+        {houses &&
+          houses.map((house, key) => {
+            return (
+              <div key={key} className="mb-2">
+                <p>
+                  {house.address}
+                  {"  "}
+                  <Link
+                    to={`/edit-house?house_id=${house.id}`}
+                    className="text-blue-600 hover:text-blue-800"
+                  >
+                    Edit
+                  </Link>
+                </p>
+              </div>
+            );
+          })}
 
-      <button>
-        <Link to="/add-house">Add a house</Link>
-      </button>
-      <br />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>
-          Password{" "}
-          <input
-            type="text"
-            placeholder={user?.password}
-            {...register("password")}
-          ></input>
-        </label>
-
-        <br />
-        {failed === true && <h4>Something went wrong</h4>}
-        <button type="submit">Update Profile</button>
-      </form>
+        <button className="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 w-full mb-6">
+          <Link to="/add-house" className="text-white">
+            Add a house
+          </Link>
+        </button>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="flex flex-col">
+            <label className="font-semibold">Password</label>
+            <input
+              type="text"
+              placeholder={user?.password}
+              {...register("password")}
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          {failed === true && (
+            <h4 className="text-red-600 mb-4">Something went wrong</h4>
+          )}
+          <button
+            type="submit"
+            className="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 w-full"
+          >
+            Update Profile
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
