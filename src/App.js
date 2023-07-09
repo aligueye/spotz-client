@@ -18,6 +18,7 @@ import Results from "./pages/Results";
 import AddHouse from "./pages/AddHouse";
 import EditHouse from "./pages/EditHouse";
 import NavBar from "./pages/components/NavBar";
+import HouseDetails from "./pages/HouseDetails";
 
 import "./app.css";
 import "./index.css";
@@ -60,6 +61,7 @@ function App() {
             <Route path="/profile" element={<StudentProfile />} />
             <Route path="/landlord-profile" element={<LandlordProfile />} />
             <Route path="/results" element={<Results />} />
+            <Route path="/house" element={<HouseDetails />} />
             <Route path="/add-house" element={<AddHouse />} />
             <Route path="/edit-house" element={<EditHouse />} />
             <Route path="*" element={<ErrorPage />} />
