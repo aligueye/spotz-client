@@ -11,7 +11,7 @@ const putUser = async ({ password, user }) => {
     body.password = password;
   }
 
-  return fetch("http://127.0.0.1:5000/landlord/", {
+  return fetch("https://spotz-api.azurewebsites.net/landlord/", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -28,12 +28,15 @@ const putUser = async ({ password, user }) => {
 };
 
 const getHouses = async (user) => {
-  return fetch(`http://127.0.0.1:5000/landlord/${user.id}/houses`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((res) => {
+  return fetch(
+    `https://spotz-api.azurewebsites.net/landlord/${user.id}/houses`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  ).then((res) => {
     if (res.ok) {
       return res.json();
     } else {

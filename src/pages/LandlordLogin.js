@@ -6,7 +6,7 @@ import { encode } from "base-64";
 import UserContext from "../utils/UserContext";
 
 const loginLandlord = async ({ email, password }) => {
-  return fetch("http://127.0.0.1:5000/landlord-login/", {
+  return fetch("https://spotz-api.azurewebsites.net/landlord-login/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +16,7 @@ const loginLandlord = async ({ email, password }) => {
 };
 
 const getUser = async ({ token }) => {
-  return fetch("http://127.0.0.1:5000/landlord/", {
+  return fetch("https://spotz-api.azurewebsites.net/landlord/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -6,7 +6,7 @@ import Select from "react-select";
 const createStudent = async ({ email, password, school }) => {
   const body = { email: email, password: password, school: school };
 
-  return fetch("http://127.0.0.1:5000/student/", {
+  return fetch("https://spotz-api.azurewebsites.net/student/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

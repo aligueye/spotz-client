@@ -12,7 +12,7 @@ const putUser = async ({ password, school, user }) => {
   if (school) {
     body.school = school;
   }
-  return fetch("http://127.0.0.1:5000/student/", {
+  return fetch("https://spotz-api.azurewebsites.net/student/", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

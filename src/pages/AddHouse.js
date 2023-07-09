@@ -18,7 +18,7 @@ const postHouse = async (data, user, latLng) => {
     ...data,
   };
 
-  return fetch("http://127.0.0.1:5000/house/1", {
+  return fetch("https://spotz-api.azurewebsites.net/house/1", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

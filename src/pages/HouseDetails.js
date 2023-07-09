@@ -12,7 +12,7 @@ const HouseDetails = () => {
   const id = Number(queryParams.get("id"));
 
   const getHouse = async (id) => {
-    return fetch(`http://127.0.0.1:5000/house/${id}`, {
+    return fetch(`https://spotz-api.azurewebsites.net/house/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ const HouseDetails = () => {
   };
 
   const getImages = async (id) => {
-    return fetch(`http://127.0.0.1:5000/uploads/${id}`, {
+    return fetch(`https://spotz-api.azurewebsites.net/uploads/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import "./results.css";
 
 const getClosetHouses = async (lat, lng) => {
-  return fetch("http://127.0.0.1:5000/houses/results", {
+  return fetch("https://spotz-api.azurewebsites.net/houses/results", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

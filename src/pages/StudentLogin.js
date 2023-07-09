@@ -6,7 +6,7 @@ import { encode } from "base-64";
 import UserContext from "../utils/UserContext";
 
 const loginStudent = async ({ email, password }) => {
-  return fetch("http://127.0.0.1:5000/student-login/", {
+  return fetch("https://spotz-api.azurewebsites.net/student-login/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +16,7 @@ const loginStudent = async ({ email, password }) => {
 };
 
 const getUser = async ({ token }) => {
-  return fetch("http://127.0.0.1:5000/student/", {
+  return fetch("https://spotz-api.azurewebsites.net/student/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

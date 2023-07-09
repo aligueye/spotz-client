@@ -28,7 +28,7 @@ const putHouse = async (data, house) => {
     body.square_feet = square_feet;
   }
 
-  return fetch(`http://127.0.0.1:5000/house/${house.id}`, {
+  return fetch(`https://spotz-api.azurewebsites.net/house/${house.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -47,7 +47,7 @@ const putHouse = async (data, house) => {
 
 // method to delete house by houseId
 const deleteHouse = async (houseId) => {
-  return fetch(`http://127.0.0.1:5000/house/${houseId}`, {
+  return fetch(`https://spotz-api.azurewebsites.net/house/${houseId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const deleteHouse = async (houseId) => {
 
 // method to get house
 const getHouse = async (houseId) => {
-  return fetch(`http://127.0.0.1:5000/house/${houseId}`, {
+  return fetch(`https://spotz-api.azurewebsites.net/house/${houseId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const getHouse = async (houseId) => {
 };
 
 const getImages = async (houseId) => {
-  return fetch(`http://127.0.0.1:5000/uploads/${houseId}`, {
+  return fetch(`https://spotz-api.azurewebsites.net/uploads/${houseId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const getImages = async (houseId) => {
 };
 
 const deleteUpload = async (uploadId) => {
-  return fetch(`http://127.0.0.1:5000/upload/${uploadId}`, {
+  return fetch(`https://spotz-api.azurewebsites.net/upload/${uploadId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
