@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 const createLandlord = async ({ email, password }) => {
   const body = { email: email, password: password };
 
-  return fetch("https://spotz-api.azurewebsites.net/landlord/", {
+  return fetch("https://spotz-api-app.azurewebsites.net/landlord/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

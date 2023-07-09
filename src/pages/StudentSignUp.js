@@ -6,7 +6,7 @@ import Select from "react-select";
 const createStudent = async ({ email, password, school }) => {
   const body = { email: email, password: password, school: school };
 
-  return fetch("https://spotz-api.azurewebsites.net/student/", {
+  return fetch("https://spotz-api-app.azurewebsites.net/student/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,13 +26,14 @@ const StudentSignUp = () => {
   } = useForm();
 
   const [schools, setSchools] = useState([]);
-  const [selectedSchool, setSelectedSchool] = useState("");
+  const [selectedSchool, setSelectedSchool] = useState(null);
+  const [inputValue, setInputValue] = useState("");
 
   const onSubmit = async ({ email, password }) => {
     const response = await createStudent({
       email,
       password,
-      school: selectedSchool,
+      school: selectedSchool?.value,
     });
     if (response) {
       navigate("/login");
@@ -40,9 +41,7 @@ const StudentSignUp = () => {
   };
 
   const handleInputChange = (newValue) => {
-    const inputValue = newValue;
-    setSelectedSchool(inputValue);
-    return inputValue;
+    setInputValue(newValue);
   };
 
   useEffect(() => {
@@ -52,21 +51,20 @@ const StudentSignUp = () => {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data?.results);
           setSchools(
             data.results.map((school) => ({
-              label: school?.school.name,
-              value: school?.school.name,
+              label: school.school.name,
+              value: school.school.name,
             }))
           );
         })
         .catch((error) => console.error("Error:", error));
     };
 
-    if (selectedSchool.length > 2) {
-      fetchSchools(selectedSchool);
+    if (inputValue.length > 2) {
+      fetchSchools(inputValue);
     }
-  }, [selectedSchool]);
+  }, [inputValue]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -115,7 +113,14 @@ const StudentSignUp = () => {
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">School:</label>
-            <Select options={schools} onInputChange={handleInputChange} />
+            <Select
+              options={schools}
+              onInputChange={handleInputChange}
+              onChange={setSelectedSchool}
+              styles={{
+                menu: (provided) => ({ ...provided, zIndex: 9999 }),
+              }}
+            />
           </div>
           <button
             type="submit"

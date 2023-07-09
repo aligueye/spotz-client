@@ -7,7 +7,7 @@ const postImage = async (house, data) => {
   formData.append("file", data.image[0]);
   formData.append("house_id", house.id);
 
-  return fetch(`https://spotz-api.azurewebsites.net/upload/${house.id}`, {
+  return fetch(`https://spotz-api-app.azurewebsites.net/upload/${house.id}`, {
     method: "POST",
     body: formData,
   })

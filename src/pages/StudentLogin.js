@@ -6,17 +6,19 @@ import { encode } from "base-64";
 import UserContext from "../utils/UserContext";
 
 const loginStudent = async ({ email, password }) => {
-  return fetch("https://spotz-api.azurewebsites.net/student-login/", {
+  return fetch("https://spotz-api-app.azurewebsites.net/student-login/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Basic " + encode(email + ":" + password),
     },
+
+    credentials: "include",
   }).then((data) => data.json());
 };
 
 const getUser = async ({ token }) => {
-  return fetch("https://spotz-api.azurewebsites.net/student/", {
+  return fetch("https://spotz-api-app.azurewebsites.net/student/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

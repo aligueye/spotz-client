@@ -11,7 +11,7 @@ const putUser = async ({ password, user }) => {
     body.password = password;
   }
 
-  return fetch("https://spotz-api.azurewebsites.net/landlord/", {
+  return fetch("https://spotz-api-app.azurewebsites.net/landlord/", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const putUser = async ({ password, user }) => {
 
 const getHouses = async (user) => {
   return fetch(
-    `https://spotz-api.azurewebsites.net/landlord/${user.id}/houses`,
+    `https://spotz-api-app.azurewebsites.net/landlord/${user.id}/houses`,
     {
       method: "GET",
       headers: {
