@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 const createStudent = async ({ email, password, school }) => {
   const body = { email: email, password: password, school: school };
@@ -24,13 +25,48 @@ const StudentSignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async ({ email, password, school }) => {
-    const response = await createStudent({ email, password, school });
+  const [schools, setSchools] = useState([]);
+  const [selectedSchool, setSelectedSchool] = useState("");
 
+  const onSubmit = async ({ email, password }) => {
+    const response = await createStudent({
+      email,
+      password,
+      school: selectedSchool,
+    });
     if (response) {
       navigate("/login");
     }
   };
+
+  const handleInputChange = (newValue) => {
+    const inputValue = newValue;
+    setSelectedSchool(inputValue);
+    return inputValue;
+  };
+
+  useEffect(() => {
+    const fetchSchools = (search) => {
+      const apiKey = "tW7DGpHL6z0Mi8wAgH8EB751wlRrafs1K0ugITfY";
+      const url = `https://api.data.gov/ed/collegescorecard/v1/schools.json?school.name=${search}&api_key=${apiKey}`;
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data?.results);
+          setSchools(
+            data.results.map((school) => ({
+              label: school?.school.name,
+              value: school?.school.name,
+            }))
+          );
+        })
+        .catch((error) => console.error("Error:", error));
+    };
+
+    if (selectedSchool.length > 2) {
+      fetchSchools(selectedSchool);
+    }
+  }, [selectedSchool]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -79,16 +115,7 @@ const StudentSignUp = () => {
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">School:</label>
-            <input
-              type="text"
-              {...register("school", { required: true })}
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-            />
-            {errors.school?.type === "required" && (
-              <span role="alert" className="text-red-600">
-                School is required
-              </span>
-            )}
+            <Select options={schools} onInputChange={handleInputChange} />
           </div>
           <button
             type="submit"

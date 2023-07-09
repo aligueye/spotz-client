@@ -49,34 +49,46 @@ const StudentProfile = () => {
   };
 
   return (
-    <div>
-      <h1>Renter Profile</h1>
-      <p>Email: {user.email}</p>
-      <p>Password: {user.password}</p>
-      <p>School: {user.school}</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>
-          Password{" "}
-          <input
-            type="text"
-            placeholder={user?.password}
-            {...register("password")}
-          ></input>
-        </label>
-        <br />
-        <label>
-          School{" "}
-          <input
-            type="text"
-            placeholder={user?.school}
-            {...register("school")}
-          ></input>
-        </label>
-        <br />
-        {failed === true && <h4>Something went wrong</h4>}
-        {/* Add way to assign house to student */}
-        <button type="submit">Update Profile</button>
-      </form>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
+      <div className="p-6 mt-6 text-left border w-96 rounded-xl shadow-xl bg-white">
+        <h1 className="mb-5 text-3xl font-bold">Renter Profile</h1>
+        <p>
+          <span className="font-bold">Email:</span> {user.email}
+        </p>
+        <p>
+          <span className="font-bold">Password:</span> {user.password}
+        </p>
+        <p>
+          <span className="font-bold">School:</span> {user.school}
+        </p>
+        <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
+          <label className="block mb-2">
+            <span className="text-gray-700">Password</span>
+            <input
+              type="password"
+              placeholder={user?.password}
+              {...register("password")}
+              className="mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300"
+            />
+          </label>
+          <label className="block mb-4">
+            <span className="text-gray-700">School</span>
+            <input
+              type="text"
+              placeholder={user?.school}
+              {...register("school")}
+              className="mt-1 block w-full rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300"
+            />
+          </label>
+          {failed && <h4 className="text-red-500">Something went wrong</h4>}
+          <button
+            type="submit"
+            className="w-full px-3 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none"
+          >
+            Update Profile
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

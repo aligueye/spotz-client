@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import HouseContext from "../utils/HouseContext";
 import Map from "./components/Map";
+import { useNavigate } from "react-router-dom";
 
 import "./results.css";
 
@@ -31,6 +32,7 @@ const Results = () => {
   const [lng, setLng] = useState(Number(queryParams.get("lng")));
   const [houses, setHouses] = useState();
   const [selectedHouse, setSelectedHouse] = useState();
+  const navigate = useNavigate();
 
   const value = useMemo(
     () => ({ selectedHouse, setSelectedHouse }),
@@ -59,7 +61,7 @@ const Results = () => {
             <div className="map-details__baths">{`baths: ${selectedHouse?.bathrooms}`}</div>
             <button
               className="map-details__cta"
-              onClick={() => console.log("opening page")}
+              onClick={() => navigate(`/house?id=${selectedHouse?.id}`)}
             >
               Let's Go
             </button>
